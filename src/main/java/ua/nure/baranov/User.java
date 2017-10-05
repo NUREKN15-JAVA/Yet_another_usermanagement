@@ -1,6 +1,6 @@
 package ua.nure.baranov;
 
-import java.util.Date;
+import java.util.Calendar;
 
 /**
  * @author effffgen
@@ -10,7 +10,7 @@ public class User {
 	private Long id;
 	private String firstName;
 	private String lastName;
-	private Date birthDay;
+	private Calendar birthDay;
 	public Long getId() {
 		return id;
 	}
@@ -29,10 +29,10 @@ public class User {
 	public void setLastName(String lastName) {
 		this.lastName = lastName;
 	}
-	public Date getBirthDay() {
+	public Calendar getBirthDay() {
 		return birthDay;
 	}
-	public void setBirthDay(Date birthDay) {
+	public void setBirthDay(Calendar birthDay) {
 		this.birthDay = birthDay;
 	}
 	public String getFullName() throws IllegalStateException{
@@ -42,6 +42,21 @@ public class User {
 		}
 		fullName.append(firstName).append(' ').append(lastName);
 		return fullName.toString();
+	}
+	
+	
+	public int getAge() throws IllegalStateException{
+		Calendar currentDate=Calendar.getInstance();
+		if(birthDay.compareTo(currentDate)>=0) {
+			throw new IllegalStateException("User has not been born yet");
+		}
+		int age=currentDate.get(Calendar.YEAR)-birthDay.get(Calendar.YEAR);
+		if(currentDate.get(Calendar.MONTH)<birthDay.get(Calendar.MONTH)
+				||(currentDate.get(Calendar.MONTH)==birthDay.get(Calendar.MONTH) 
+				&& currentDate.get(Calendar.DAY_OF_MONTH)<=birthDay.get(Calendar.DAY_OF_MONTH))) {
+			age--;
+		}
+		return age;
 	}
 	
 }
