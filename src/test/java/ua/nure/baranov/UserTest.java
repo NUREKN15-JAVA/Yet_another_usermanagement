@@ -9,6 +9,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 public class UserTest  {
+	private static final int TEST_AGE = 20;
 	private static final int TEST_DAY = 23;
 	private static final int TEST_MONTH = Calendar.SEPTEMBER;
 	private static final int TEST_YEAR = 1997;
@@ -49,7 +50,7 @@ public class UserTest  {
 		Calendar userBirthDay=Calendar.getInstance();
 		userBirthDay.set(TEST_YEAR, TEST_MONTH, TEST_DAY);
 		user.setBirthDay(userBirthDay);
-		assertEquals(20,user.getAge());
+		assertEquals(TEST_AGE,user.getAge());
 	}
 	
 	
