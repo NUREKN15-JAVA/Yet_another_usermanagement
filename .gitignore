@@ -17,4 +17,7 @@ bin*
 .settings*
 .classpath
 .project
+
+#My own ignored files, for convenience
 TEST*.txt
+*.out.xml
