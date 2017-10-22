@@ -11,6 +11,17 @@ public class User {
 	private String lastName;
 	private Calendar birthDay;
 
+	public User(User user) {
+		this.id = user.id;
+		this.firstName = user.firstName;
+		this.lastName = user.lastName;
+		this.birthDay = user.birthDay;
+	}
+
+	public User() {
+		
+	}
+
 	public Long getId() {
 		return id;
 	}
