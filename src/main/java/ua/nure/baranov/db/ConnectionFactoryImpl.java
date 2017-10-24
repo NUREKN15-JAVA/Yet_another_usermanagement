@@ -15,7 +15,7 @@ public class ConnectionFactoryImpl implements ConnectionFactory {
 		this.driver = driver;
 		this.url = url;
 		this.username = username;
-		this.password = password;
+		this.password = password;	
 	}
 
 	@Override

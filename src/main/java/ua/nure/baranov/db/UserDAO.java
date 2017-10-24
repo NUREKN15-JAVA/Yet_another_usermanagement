@@ -36,4 +36,10 @@ public interface UserDAO {
 	 * @throws DatabaseException
 	 */
 	public Collection<User> findAll() throws DatabaseException;
+	/**
+	 * 
+	 * @param connectionFactory
+	 */
+	public void setConnectionFactory(ConnectionFactory connectionFactory);
+	
 }
