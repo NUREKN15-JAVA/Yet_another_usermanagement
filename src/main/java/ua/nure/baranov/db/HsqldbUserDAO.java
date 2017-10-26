@@ -12,7 +12,11 @@ import java.util.Collection;
 import java.util.LinkedList;
 
 import ua.nure.baranov.User;
-
+/**
+ * Implementation of UserDAO made to work with Hsqldb databases.
+ * @author Yevhenii Baranov
+ *
+ */
 class HsqldbUserDAO implements UserDAO {
 
 	private static final String SELECT_QUERY = "SELECT * FROM Users WHERE Users.id=?";
@@ -39,11 +43,17 @@ class HsqldbUserDAO implements UserDAO {
 		return connectionFactory;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void setConnectionFactory(ConnectionFactory connectionFactory) {
 		this.connectionFactory = connectionFactory;
 	}
 	
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public User create(User user) throws DatabaseException {
 		try {
@@ -76,7 +86,10 @@ class HsqldbUserDAO implements UserDAO {
 		}
 
 	}
-
+	
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void update(User user) throws DatabaseException {
 	      try{
@@ -95,7 +108,10 @@ class HsqldbUserDAO implements UserDAO {
 	            throw new DatabaseException(e);
 	        }		
 	}
-
+	
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void delete(User user) throws DatabaseException {
 	     try{
@@ -109,7 +125,10 @@ class HsqldbUserDAO implements UserDAO {
 	            throw new DatabaseException(e);
 	        }
 	}
-
+	
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public User find(Long id) throws DatabaseException {
 		User resultUser = null;
@@ -137,7 +156,10 @@ class HsqldbUserDAO implements UserDAO {
 		return resultUser;
 				
 	}
-
+	
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public Collection<User> findAll() throws DatabaseException {
 		Collection<User> users = new LinkedList<>();

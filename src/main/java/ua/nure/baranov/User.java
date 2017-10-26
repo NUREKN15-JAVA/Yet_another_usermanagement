@@ -17,6 +17,22 @@ public class User {
 		this.lastName = user.lastName;
 		this.birthDay = user.birthDay;
 	}
+	
+
+	public User(Long id, String firstName, String lastName, Calendar birthDay) {
+		this.id = id;
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.birthDay = birthDay;
+	}
+
+
+	public User(String firstName, String lastName, Calendar birthDay) {
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.birthDay = birthDay;
+	}
+
 
 	public User() {
 		

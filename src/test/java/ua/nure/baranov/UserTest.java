@@ -5,7 +5,11 @@ import static org.junit.Assert.fail;
 import java.util.Calendar;
 import org.junit.Before;
 import org.junit.Test;
-
+/**
+ * Class-tester for {@link User} class.
+ * @author Yevhenii Baranov
+ *
+ */
 public class UserTest {
 	private static final int TEST_AGE = 20;
 	private static final int TEST_DAY = 23;
