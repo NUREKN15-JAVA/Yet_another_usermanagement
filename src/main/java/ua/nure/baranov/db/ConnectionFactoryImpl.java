@@ -38,7 +38,6 @@ public class ConnectionFactoryImpl implements ConnectionFactory {
 		this.password = properties.getProperty("connection.password");
 		this.driver = properties.getProperty("connection.driver");
 		this.url = properties.getProperty("connection.url");
-
 	}
 	
 	/**
