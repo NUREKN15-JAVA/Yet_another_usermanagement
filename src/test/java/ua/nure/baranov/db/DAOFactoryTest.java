@@ -3,8 +3,10 @@ package ua.nure.baranov.db;
 import static org.junit.Assert.assertNotNull;
 
 import org.junit.Test;
+
 /**
  * Class-tester for {@link DAOFactoryImpl} class.
+ * 
  * @author effffgen
  *
  */

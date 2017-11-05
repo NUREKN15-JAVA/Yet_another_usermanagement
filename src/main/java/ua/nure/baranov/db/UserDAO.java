@@ -21,6 +21,7 @@ public interface UserDAO {
 
 	/**
 	 * Updates current user in the database.
+	 * Note that the function finds user by id and thus the id of updated user must be the same as id of user that we want to change.
 	 * @param user	Updated version of user.
 	 * @throws DatabaseException	in case of occurence of any troubles with database.
 	 */

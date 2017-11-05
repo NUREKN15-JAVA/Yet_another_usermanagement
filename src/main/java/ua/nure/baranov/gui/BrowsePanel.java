@@ -10,12 +10,20 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.ListSelectionModel;
 
 import ua.nure.baranov.User;
 import ua.nure.baranov.db.DatabaseException;
 import ua.nure.baranov.gui.util.Messages;
+
+/**
+ * Panel for browsing the contents of the database.
+ * 
+ * @author Yevhenii Baranov
+ *
+ */
 @SuppressWarnings("serial")
-public class BrowsePanel extends JPanel implements ActionListener{
+public class BrowsePanel extends JPanel implements ActionListener {
 	private MainFrame mainFrame;
 	private JPanel buttonPanel;
 	private JButton addButton;
@@ -34,7 +42,7 @@ public class BrowsePanel extends JPanel implements ActionListener{
 		this.setLayout(new BorderLayout());
 		this.add(getTablePanel(), BorderLayout.CENTER);
 		this.add(getButtonPanel(), BorderLayout.SOUTH);
-		
+
 	}
 
 	private JPanel getButtonPanel() {
@@ -103,13 +111,16 @@ public class BrowsePanel extends JPanel implements ActionListener{
 		if (userTable == null) {
 			userTable = new JTable();
 			userTable.setName("userTable"); //$NON-NLS-1$
+			userTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		}
 		return userTable;
 	}
 
+	/**
+	 * Initializes the table, making it able to show all changes in the database.
+	 */
 	public void initTable() {
 		UserTableModel model = null;
-		
 		try {
 			model = new UserTableModel(mainFrame.getDAO().findAll());
 		} catch (DatabaseException e) {
@@ -121,9 +132,64 @@ public class BrowsePanel extends JPanel implements ActionListener{
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		if("add".equals(e.getActionCommand())) { //$NON-NLS-1$
+		if ("add".equals(e.getActionCommand())) { //$NON-NLS-1$
 			mainFrame.showAddPanel();
 		}
-		
+		if ("details".equals(e.getActionCommand())) {
+			try {
+				User selectedUser = getSelectedUser();
+				if (selectedUser != null) {
+					mainFrame.showDetailsPanel(mainFrame.getDAO().find(selectedUser.getId()));
+				}
+			} catch (DatabaseException e1) {
+				JOptionPane.showMessageDialog(this, e1.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+			}
+		}
+		if ("delete".equals(e.getActionCommand())) {
+			try {
+				User selectedUser = getSelectedUser();
+				if (selectedUser != null) {
+					processDeletion(selectedUser);
+				}
+			} catch (DatabaseException e1) {
+				JOptionPane.showMessageDialog(this, e1.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+			}
+		}
+		if ("edit".equals(e.getActionCommand())) {
+			User selectedUser = getSelectedUser();
+			if (selectedUser != null) {
+				mainFrame.showEditPanel(selectedUser);
+			}
+		}
+	}
+
+	/**
+	 * Prompts the confirmation window and deletes {@code selectedUser} from the
+	 * database.
+	 * 
+	 * @param selectedUser
+	 *            User to be deleted.
+	 * @throws DatabaseException
+	 */
+	private void processDeletion(User selectedUser) throws DatabaseException {
+		int result = JOptionPane.showConfirmDialog(mainFrame, "Are you sure you want to delete this user?",
+				"Delete user", JOptionPane.OK_CANCEL_OPTION);
+		if (result == JOptionPane.OK_OPTION) {
+			mainFrame.getDAO().delete(selectedUser);
+			getUserTable().setModel(new UserTableModel(mainFrame.getDAO().findAll()));
+		}
+	}
+
+	/**
+	 * Finds selected user in table and returns it.
+	 * 
+	 * @return User if it was successfully found, {@code null} otherwise.
+	 */
+	private User getSelectedUser() {
+		int row = getUserTable().getSelectedRow();
+		if (row == -1) {
+			return null;
+		}
+		return ((UserTableModel) getUserTable().getModel()).getUser(row);
 	}
 }

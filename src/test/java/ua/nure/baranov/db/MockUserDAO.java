@@ -15,7 +15,7 @@ import ua.nure.baranov.User;
 public class MockUserDAO implements UserDAO {
 	private Map<Long, User> users = new HashMap<>();
 	private Long id = 0L;
-	
+
 	@Override
 	public User create(User user) throws DatabaseException {
 		Long currentId = ++id;

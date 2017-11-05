@@ -17,7 +17,6 @@ public class User {
 		this.lastName = user.lastName;
 		this.birthDay = user.birthDay;
 	}
-	
 
 	public User(Long id, String firstName, String lastName, Calendar birthDay) {
 		this.id = id;
@@ -26,16 +25,14 @@ public class User {
 		this.birthDay = birthDay;
 	}
 
-
 	public User(String firstName, String lastName, Calendar birthDay) {
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.birthDay = birthDay;
 	}
 
-
 	public User() {
-		
+
 	}
 
 	public Long getId() {
@@ -49,22 +46,26 @@ public class User {
 	public String getFirstName() {
 		return firstName;
 	}
-	
+
 	/**
 	 * Setter for the first name of the user
-	 * @param firstName - must not be empty string
+	 * 
+	 * @param firstName
+	 *            - must not be empty string
 	 */
 	public void setFirstName(String firstName) {
 		this.firstName = firstName;
 	}
-	
+
 	public String getLastName() {
 		return lastName;
 	}
 
 	/**
 	 * Setter for the last name of the user
-	 * @param lastName - must not be empty string
+	 * 
+	 * @param lastName
+	 *            - must not be empty string
 	 */
 	public void setLastName(String lastName) {
 		this.lastName = lastName;
@@ -77,11 +78,13 @@ public class User {
 	public void setBirthDay(Calendar birthDay) {
 		this.birthDay = birthDay;
 	}
-	
+
 	/**
-	 * Assembles and returns full name of user. 
+	 * Assembles and returns full name of user.
+	 * 
 	 * @return Full name.
-	 * @throws IllegalStateException if either first or last name is not set.
+	 * @throws IllegalStateException
+	 *             if either first or last name is not set.
 	 */
 	public String getFullName() throws IllegalStateException {
 		StringBuilder fullName = new StringBuilder();
@@ -94,6 +97,7 @@ public class User {
 
 	/**
 	 * Calculates current age of user, depending on his birthday.
+	 * 
 	 * @return Age of user.
 	 * @throws IllegalStateException
 	 */
@@ -105,35 +109,32 @@ public class User {
 		int age = currentDate.get(Calendar.YEAR) - birthDay.get(Calendar.YEAR);
 		if (currentDate.get(Calendar.MONTH) < birthDay.get(Calendar.MONTH)
 				|| (currentDate.get(Calendar.MONTH) == birthDay.get(Calendar.MONTH)
-				&& currentDate.get(Calendar.DAY_OF_MONTH) <= birthDay.get(Calendar.DAY_OF_MONTH))) {
+						&& currentDate.get(Calendar.DAY_OF_MONTH) <= birthDay.get(Calendar.DAY_OF_MONTH))) {
 			age--;
 		}
 		return age;
 	}
-
 
 	@Override
 	public boolean equals(Object object) {
 		if (this == object) {
 			return true;
 		}
-		if(object == null || !(object instanceof User)) {
+		if (object == null || !(object instanceof User)) {
 			return false;
 		}
-		if(this.id == null) {
-			if (((User)object).id == null) {
+		if (this.id == null) {
+			if (((User) object).id == null) {
 				return true;
-			}
-			else {
+			} else {
 				return false;
 			}
 		}
-		if(this.id == null || ((User)object).id == null) {
+		if (this.id == null || ((User) object).id == null) {
 			return false;
 		}
-		return this.id.equals(((User)object).id);
+		return this.id.equals(((User) object).id);
 	}
-
 
 	@Override
 	public int hashCode() {

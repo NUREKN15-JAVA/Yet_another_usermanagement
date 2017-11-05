@@ -12,25 +12,19 @@ import ua.nure.baranov.User;
 import ua.nure.baranov.db.DatabaseException;
 import ua.nure.baranov.gui.util.Messages;
 
-/**
- * Panel for adding new user to the database
- * 
- * @author Yevhenii Baranov
- *
- */
 @SuppressWarnings("serial")
-public class AddPanel extends AbstractUserEditPanel {
+public class EditPanel extends AbstractUserEditPanel implements SpecificUserWorker {
+	User userToEdit;
 
-	public AddPanel(MainFrame mainFrame) {
+	public EditPanel(MainFrame mainFrame) {
 		super(mainFrame);
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if ("ok".equals(e.getActionCommand())) {
-			User user = new User();
-			user.setFirstName(getFirstNameField().getText());
-			user.setLastName(getLastNameField().getText());
+			userToEdit.setFirstName(getFirstNameField().getText());
+			userToEdit.setLastName(getLastNameField().getText());
 			String birthday = getBirthdayField().getText();
 			Calendar calendar = Calendar.getInstance();
 			SimpleDateFormat format = new SimpleDateFormat(Messages.format);
@@ -40,9 +34,9 @@ public class AddPanel extends AbstractUserEditPanel {
 				getBirthdayField().setBackground(Color.RED);
 				return;
 			}
-			user.setBirthDay(calendar);
+			userToEdit.setBirthDay(calendar);
 			try {
-				getMainFrame().getDAO().create(user);
+				getMainFrame().getDAO().update(userToEdit);
 			} catch (DatabaseException ex) {
 				JOptionPane.showMessageDialog(this, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
 
@@ -51,4 +45,17 @@ public class AddPanel extends AbstractUserEditPanel {
 		clearFields();
 		getMainFrame().showBrowsePanel();
 	}
+
+	public void setUser(User userToShow) {
+		this.userToEdit = userToShow;
+		resetLabels();
+	}
+
+	private void resetLabels() {
+		this.getFirstNameField().setText(userToEdit.getFirstName());
+		this.getLastNameField().setText(userToEdit.getLastName());
+		SimpleDateFormat format = new SimpleDateFormat(Messages.format);
+		this.getBirthdayField().setText(format.format(userToEdit.getBirthDay().getTime()));
+	}
+
 }
