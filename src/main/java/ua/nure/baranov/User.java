@@ -116,24 +116,18 @@ public class User {
 	}
 
 	@Override
-	public boolean equals(Object object) {
-		if (this == object) {
+
+	public boolean equals(Object obj) {
+		if (obj == null) {
+			return false;
+		}
+		if (this == obj) {
 			return true;
 		}
-		if (object == null || !(object instanceof User)) {
-			return false;
+		if (this.getId() == null && ((User) obj).getId() == null) {
+			return true;
 		}
-		if (this.id == null) {
-			if (((User) object).id == null) {
-				return true;
-			} else {
-				return false;
-			}
-		}
-		if (this.id == null || ((User) object).id == null) {
-			return false;
-		}
-		return this.id.equals(((User) object).id);
+		return this.getId().equals(((User) obj).getId());
 	}
 
 	@Override
