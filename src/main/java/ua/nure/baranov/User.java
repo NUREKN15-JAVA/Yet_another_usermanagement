@@ -1,6 +1,7 @@
 package ua.nure.baranov;
 
 import java.util.Calendar;
+import java.util.Date;
 
 /**
  * @author Yevhenii Baranov
@@ -78,7 +79,17 @@ public class User {
 	public void setBirthDay(Calendar birthDay) {
 		this.birthDay = birthDay;
 	}
-
+	
+	public Date getDateOfBirth() {
+		return birthDay.getTime();
+	}
+	
+	public void setDateOfBirth(Date date) {
+		birthDay.setTime(date);
+	}
+	
+	
+	
 	/**
 	 * Assembles and returns full name of user.
 	 * 

@@ -7,7 +7,7 @@ import org.junit.Test;
 /**
  * Class-tester for {@link DAOFactoryImpl} class.
  * 
- * @author effffgen
+ * @author Yevhenii Baranov
  *
  */
 public class DAOFactoryTest {

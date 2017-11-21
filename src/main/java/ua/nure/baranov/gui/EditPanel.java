@@ -11,7 +11,11 @@ import javax.swing.JOptionPane;
 import ua.nure.baranov.User;
 import ua.nure.baranov.db.DatabaseException;
 import ua.nure.baranov.gui.util.Messages;
-
+/**
+ * Panel for editing user in the database.
+ * @author Yevhenii Baranov
+ *
+ */
 @SuppressWarnings("serial")
 public class EditPanel extends AbstractUserEditPanel implements SpecificUserWorker {
 	User userToEdit;
@@ -45,7 +49,10 @@ public class EditPanel extends AbstractUserEditPanel implements SpecificUserWork
 		clearFields();
 		getMainFrame().showBrowsePanel();
 	}
-
+	/**
+	 * Sets user to work with
+	 * @param userToShow user that is to be edited
+	 */
 	public void setUser(User userToShow) {
 		this.userToEdit = userToShow;
 		resetLabels();

@@ -13,7 +13,7 @@ import org.dbunit.ext.hsqldb.HsqldbDataTypeFactory;
 import ua.nure.baranov.User;
 /**
  * Class-tester for {@link HsqldbUserDAO} class.
- * @author effffgen
+ * @author Yevhenii Baranov
  *
  */
 public class HsqlUserDAOTest extends DatabaseTestCase {

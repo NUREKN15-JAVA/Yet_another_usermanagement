@@ -5,7 +5,7 @@ import java.util.Properties;
 
 /**
  * Abstract factory class for getting connection factory and user DAO. Singletone class, so use {@link #getInstance()} method. 
- * @author effffgen
+ * @author Yevhenii Baranov
  *
  */
 public abstract class DAOFactory {

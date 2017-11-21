@@ -31,7 +31,7 @@ import junit.extensions.jfcunit.eventdata.StringEventData;
  * Test case for whole gui package in general and for the {@link MainFrame}
  * class as the starting point.
  * 
- * @author effffgen
+ * @author Yevhenii Baranov
  *
  */
 public class MainFrameTest extends JFCTestCase {
@@ -209,7 +209,7 @@ public class MainFrameTest extends JFCTestCase {
 		find(JTable.class, "userTable");
 		assertEquals(1, table.getRowCount());
 	}
-
+	
 	// TODO: rewrite with usage of another mock library.
 	// It's currently impossible to test changes in table with mockobjects
 	/**

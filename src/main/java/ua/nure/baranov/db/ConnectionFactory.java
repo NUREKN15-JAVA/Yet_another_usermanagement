@@ -3,7 +3,7 @@ package ua.nure.baranov.db;
 import java.sql.Connection;
 /**
  * Factory class for creating connection with database.
- * @author effffgen
+ * @author Yevhenii Baranov
  *
  */
 public interface ConnectionFactory {
