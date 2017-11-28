@@ -31,6 +31,7 @@ class HsqldbUserDAO implements UserDAO {
 	private static final String SELECT_ALL_QUERY = "SELECT * FROM Users";
 	private static final String UPDATE_USERS_SET_FIRSTNAME_LASTNAME_DATEOFBIRTH_WHERE_ID = "UPDATE users SET firstname = ?, lastname = ?, birthday = ? WHERE id = ?";
 	private static final String DELETE_FROM_USERS_WHERE_ID = "DELETE FROM Users WHERE id=?";
+	private static final String SEARCH_NAME_QUERY = "SELECT * FROM Users WHERE Users.firstname=? AND Users.lastName=?";
 	private ConnectionFactory connectionFactory;
 
 	public HsqldbUserDAO(ConnectionFactory factory) {
@@ -169,4 +170,32 @@ class HsqldbUserDAO implements UserDAO {
 		return users;
 	}
 
+	@Override
+	public Collection<User> find(String firstName, String lastName) throws DatabaseException {
+		Collection<User> users = new LinkedList<>();
+		try {
+			Connection connection = connectionFactory.createConnection();
+			PreparedStatement statement = connection.prepareStatement(SEARCH_NAME_QUERY);
+			statement.setString(1, firstName);
+			statement.setString(2, lastName);
+			ResultSet results = statement.executeQuery();
+			while (results.next()) {
+				User user = new User();
+				user.setFirstName(results.getString(FIELD_FIRSTNAME));
+				user.setLastName(results.getString(FIELD_LASTNAME));
+				user.setId(results.getLong(FIELD_ID));
+				Calendar birthday = Calendar.getInstance();
+				birthday.setTime(results.getDate(FIELD_BIRTHDAY));
+				user.setBirthDay(birthday);
+				users.add(user);
+			}
+			results.close();
+			statement.close();
+			connection.close();
+		} catch (SQLException e) {
+			throw new DatabaseException(e);
+		}
+		return users;
+	}
+	
 }

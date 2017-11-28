@@ -151,5 +151,17 @@ public class HsqlUserDAOTest extends DatabaseTestCase {
 			fail(e.toString());
 		}
 	}
+	
+	
+	public void testFindByName() {
+		try {
+			Collection<User> users = dao.find(TEST_NAME, TEST_LASTNAME);
+			assertNotNull(users);
+			assertEquals(1, users.size());
+		} catch (DatabaseException e) {
+			e.printStackTrace();
+			fail(e.toString());
+		}
+	}
 
 }

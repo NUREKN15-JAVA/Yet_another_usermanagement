@@ -58,18 +58,19 @@ public abstract class AbstractUserEditPanel extends JPanel implements ActionList
 	private JButton getCancelButton() {
 		if (cancelButton == null) {
 			cancelButton = new JButton();
-			cancelButton.setText(Messages.getString("AbstactUserEditPanel.cancel")); //$NON-NLS-1$
+			cancelButton.setText(Messages.getString("AbstractUserEditPanel.cancel")); //$NON-NLS-1$
 			cancelButton.setName("cancelButton"); //$NON-NLS-1$
 			cancelButton.setActionCommand("cancel"); //$NON-NLS-1$
 			cancelButton.addActionListener(this);
 		}
 		return cancelButton;
 	}
-
+	
+	
 	private JButton getOKButton() {
 		if (okButton == null) {
 			okButton = new JButton();
-			okButton.setText(Messages.getString("AbstactUserEditPanel.add")); //$NON-NLS-1$
+			okButton.setText(Messages.getString("AbstractUserEditPanel.add")); //$NON-NLS-1$
 			okButton.setName("okButton"); //$NON-NLS-1$
 			okButton.setActionCommand("ok"); //$NON-NLS-1$
 			okButton.addActionListener(this);
@@ -81,9 +82,9 @@ public abstract class AbstractUserEditPanel extends JPanel implements ActionList
 		if (fieldPanel == null) {
 			fieldPanel = new JPanel();
 			fieldPanel.setLayout(new GridLayout(3, 2));
-			addLabeledField(fieldPanel, Messages.getString("first_name"), getFirstNameField()); //$NON-NLS-1$
-			addLabeledField(fieldPanel, Messages.getString("last_name"), getLastNameField()); //$NON-NLS-1$
-			addLabeledField(fieldPanel, Messages.getString("birthday"), getBirthdayField()); //$NON-NLS-1$
+			addLabeledField(fieldPanel, Messages.getString("AbstractUserEditPanel.firstName"), getFirstNameField()); //$NON-NLS-1$
+			addLabeledField(fieldPanel, Messages.getString("AbstractUserEditPanel.lastName"), getLastNameField()); //$NON-NLS-1$
+			addLabeledField(fieldPanel, Messages.getString("AbstractUserEditPanel.birthday"), getBirthdayField()); //$NON-NLS-1$
 		}
 		return fieldPanel;
 	}

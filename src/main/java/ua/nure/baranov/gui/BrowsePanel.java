@@ -32,17 +32,19 @@ public class BrowsePanel extends JPanel implements ActionListener {
 	private JButton detailsButton;
 	private JScrollPane tablePanel;
 	private JTable userTable;
+	private JButton searchButton;
 
 	public BrowsePanel(MainFrame mainFrame) {
 		this.mainFrame = mainFrame;
 		initialize();
+		
 	}
 
 	private void initialize() {
 		this.setLayout(new BorderLayout());
 		this.add(getTablePanel(), BorderLayout.CENTER);
 		this.add(getButtonPanel(), BorderLayout.SOUTH);
-
+		
 	}
 
 	private JPanel getButtonPanel() {
@@ -52,8 +54,20 @@ public class BrowsePanel extends JPanel implements ActionListener {
 			buttonPanel.add(getEditButton());
 			buttonPanel.add(getDeleteButton());
 			buttonPanel.add(getDetailsButton());
+			buttonPanel.add(getSearchButton());
 		}
 		return buttonPanel;
+	}
+	
+	private JButton getSearchButton() {
+		if (searchButton == null) {
+			searchButton = new JButton();
+			searchButton.setText(Messages.getString("BrowsePanel.search")); //$NON-NLS-1$
+			searchButton.setName("searchButton"); //$NON-NLS-1$
+			searchButton.setActionCommand("search"); //$NON-NLS-1$
+			searchButton.addActionListener(this);
+		}
+		return searchButton;
 	}
 
 	private JButton getDetailsButton() {
@@ -139,7 +153,7 @@ public class BrowsePanel extends JPanel implements ActionListener {
 			try {
 				User selectedUser = getSelectedUser();
 				if (selectedUser != null) {
-					mainFrame.showDetailsPanel(mainFrame.getDAO().find(selectedUser.getId()));
+					mainFrame.showDetailsPanel(mainFrame.getDAO().find(selectedUser.getId()),"browsePanel");
 				}
 			} catch (DatabaseException e1) {
 				JOptionPane.showMessageDialog(this, e1.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
@@ -160,6 +174,9 @@ public class BrowsePanel extends JPanel implements ActionListener {
 			if (selectedUser != null) {
 				mainFrame.showEditPanel(selectedUser);
 			}
+		}
+		if("search".equals(e.getActionCommand())) {
+			mainFrame.showSearchPanel();
 		}
 	}
 

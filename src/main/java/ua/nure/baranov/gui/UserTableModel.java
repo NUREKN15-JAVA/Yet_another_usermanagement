@@ -14,7 +14,7 @@ public class UserTableModel extends AbstractTableModel {
 
 	private List<User> users = null;
 	private static final String[] COLUMN_NAMES = { Messages.getString("UserTableModel.id"), //$NON-NLS-1$
-			Messages.getString("first_name"), Messages.getString("last_name") }; //$NON-NLS-1$ //$NON-NLS-2$
+			Messages.getString("UserTableModel.firstName"), Messages.getString("UserTableModel.lastName") }; //$NON-NLS-1$ //$NON-NLS-2$
 	private static final Class<?>[] COLUMN_CLASSES = { Long.class, String.class, String.class };
 
 	public UserTableModel(Collection<User> users) {
@@ -57,5 +57,14 @@ public class UserTableModel extends AbstractTableModel {
 
 	public User getUser(int row) {
 		return users.get(row);
+	}
+
+	public void addUsers(Collection<User> usersCollection) {
+		this.users.addAll(usersCollection);
+	}
+
+	public void clearUsers() {
+		this.users = new ArrayList<>();
+		
 	}
 }

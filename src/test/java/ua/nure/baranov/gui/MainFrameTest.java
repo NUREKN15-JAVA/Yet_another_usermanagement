@@ -267,7 +267,7 @@ public class MainFrameTest extends JFCTestCase {
 		super.setUp();
 		initDAO();
 		setHelper(new JFCTestHelper());
-		mainFrame = new MainFrame();
+		mainFrame = new MainFrame(null);
 		mainFrame.setVisible(true);
 	}
 

@@ -6,6 +6,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 import ua.nure.baranov.User;
+import ua.nure.baranov.agent.SearchAgent;
 import ua.nure.baranov.db.DAOFactory;
 import ua.nure.baranov.db.UserDAO;
 import ua.nure.baranov.gui.util.Messages;
@@ -23,16 +24,19 @@ public class MainFrame extends JFrame {
 	private JPanel browsePanel;
 	private JPanel addPanel;
 	private UserDAO dao;
-	private JPanel detailsPanel;
+	private DetailsPanel detailsPanel;
 	private JPanel editPanel;
+	private JPanel searchPanel;
+	private SearchAgent agent;
 
 	public static void main(String[] args) {
-		MainFrame mainFrame = new MainFrame();
+		MainFrame mainFrame = new MainFrame(null);
 		mainFrame.setVisible(true);
 	}
 
-	public MainFrame() {
+	public MainFrame(SearchAgent agent) {
 		super();
+		this.agent = agent;
 		dao = DAOFactory.getInstance().getUserDAO();
 		initialize();
 	}
@@ -44,7 +48,7 @@ public class MainFrame extends JFrame {
 	private void initialize() {
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		this.setSize(FRAME_WIDTH, FRAME_HEIGHT);
-		this.setTitle(Messages.getString("MainFrame.0")); //$NON-NLS-1$
+		this.setTitle(Messages.getString("MainFrame.appName")); //$NON-NLS-1$
 		this.setContentPane(getContentPanel());
 
 	}
@@ -87,7 +91,7 @@ public class MainFrame extends JFrame {
 		((BorderLayout) getContentPanel().getLayout()).getLayoutComponent(BorderLayout.CENTER).setVisible(false);
 	}
 	
-	private JPanel getDetailsPanel() {
+	public DetailsPanel getDetailsPanel() {
 		if (detailsPanel == null) {
 			detailsPanel = new DetailsPanel(this);
 			detailsPanel.setName("detailsPanel");
@@ -113,8 +117,9 @@ public class MainFrame extends JFrame {
 	 * Shows panel with all details about user
 	 * @param userToShow user, whose data will be shown
 	 */
-	public void showDetailsPanel(User userToShow) {
+	public void showDetailsPanel(User userToShow, String panelType) {
 		disablePanels();
+		((DetailsPanel) getDetailsPanel()).setParent(panelType);
 		((DetailsPanel) getDetailsPanel()).setUser(userToShow);
 		showPanel(getDetailsPanel());
 	}
@@ -133,6 +138,18 @@ public class MainFrame extends JFrame {
 		disablePanels();
 		((EditPanel) getEditPanel()).setUser(userToShow);
 		showPanel(getEditPanel());
+	}
+
+	public void showSearchPanel() {
+		disablePanels();
+		showPanel(getSearchPanel());
+	}
+
+	public JPanel getSearchPanel() {
+		if (searchPanel==null) {
+			searchPanel = new SearchGui(agent,this);
+		}
+		return searchPanel;
 	}
 
 }

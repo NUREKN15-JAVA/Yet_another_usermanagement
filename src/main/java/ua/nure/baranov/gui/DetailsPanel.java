@@ -29,11 +29,12 @@ public class DetailsPanel extends JPanel implements ActionListener, SpecificUser
 	private JLabel firstNameLabel;
 	private JLabel lastNameLabel;
 	private JLabel birthdayLabel;
-	private final JLabel firstNameDescriptionLabel = new JLabel(Messages.getString("first_name")); //$NON-NLS-1$
-	private final JLabel lastNameDescriptionLabel = new JLabel(Messages.getString("last_name")); //$NON-NLS-1$
-	private final JLabel birthdayDescriptionLabel = new JLabel(Messages.getString("birthday")); //$NON-NLS-1$
-	private final JLabel idDescriptionLabel = new JLabel(Messages.getString("DetailsPanel.3")); //$NON-NLS-1$
+	private final JLabel firstNameDescriptionLabel = new JLabel(Messages.getString("AbstractUserEditPanel.firstName")); //$NON-NLS-1$
+	private final JLabel lastNameDescriptionLabel = new JLabel(Messages.getString("AbstractUserEditPanel.lastName")); //$NON-NLS-1$
+	private final JLabel birthdayDescriptionLabel = new JLabel(Messages.getString("AbstractUserEditPanel.birthday")); //$NON-NLS-1$
+	private final JLabel idDescriptionLabel = new JLabel(Messages.getString("DetailsPanel.id")); //$NON-NLS-1$
 	private User user;
+	private String prevPanel;
 
 	public DetailsPanel(MainFrame mainFrame) {
 		this.mainFrame = mainFrame;
@@ -125,7 +126,16 @@ public class DetailsPanel extends JPanel implements ActionListener, SpecificUser
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
 		if ("ok".equals(arg0.getActionCommand())) { //$NON-NLS-1$
-			mainFrame.showBrowsePanel();
+			switch(prevPanel) {
+			case "browsePanel":
+				mainFrame.showBrowsePanel();
+				break;
+			case "searchPanel":
+				mainFrame.showSearchPanel();
+				break;
+			default:
+				throw new IllegalArgumentException("Unknown type of panel");
+			}
 		}
 	}
 
@@ -133,6 +143,10 @@ public class DetailsPanel extends JPanel implements ActionListener, SpecificUser
 	public void setUser(User userToShow) {
 		this.user = userToShow;
 		resetLabels();
+	}
+
+	public void setParent(String prevPanel) {
+		this.prevPanel = prevPanel;
 	}
 
 }

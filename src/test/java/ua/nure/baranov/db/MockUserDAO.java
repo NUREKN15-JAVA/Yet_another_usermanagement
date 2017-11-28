@@ -50,4 +50,9 @@ public class MockUserDAO implements UserDAO {
 	public void setConnectionFactory(ConnectionFactory connectionFactory) {
 	}
 
+	@Override
+	public Collection<User> find(String firstName, String lastName) throws DatabaseException {
+		throw new UnsupportedOperationException();
+	}
+
 }
