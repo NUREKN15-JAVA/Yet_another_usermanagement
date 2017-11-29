@@ -14,12 +14,14 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 
-import org.dbunit.util.search.SearchException;
-
 import ua.nure.baranov.User;
 import ua.nure.baranov.agent.SearchAgent;
+import ua.nure.baranov.agent.SearchException;
 
 /**
+ * Search window, connected to an agent. Displays the results of search with the
+ * help of agent.
+ * 
  * @author mak
  */
 @SuppressWarnings("serial")
@@ -42,7 +44,8 @@ public class SearchGui extends JPanel implements ActionListener {
 	private JLabel agentLabel = new JLabel();
 
 	/**
-	 * @param agent
+	 * @param agent Agent that will be used
+	 * @param mainFrame Parent frame, where search window will be shown
 	 */
 	public SearchGui(SearchAgent agent, MainFrame mainFrame) {
 		this.agent = agent;
@@ -89,9 +92,6 @@ public class SearchGui extends JPanel implements ActionListener {
 		return backButton;
 	}
 
-	/**
-	 * @return
-	 */
 	private JPanel getTablePanel() {
 		if (tablePanel == null) {
 			tablePanel = new JPanel(new BorderLayout());
@@ -100,9 +100,6 @@ public class SearchGui extends JPanel implements ActionListener {
 		return tablePanel;
 	}
 
-	/**
-	 * @return
-	 */
 	private JTable getTable() {
 		if (table == null) {
 			table = new JTable(new UserTableModel(new LinkedList<User>()));
@@ -110,15 +107,13 @@ public class SearchGui extends JPanel implements ActionListener {
 		return table;
 	}
 
-	/**
-	 * @return
-	 */
 	private JPanel getSearchPanel() {
 		return new SearchPanel(agent);
 	}
 
 	/**
-	 * @param users
+	 * Adds {@code users} to the table. 
+	 * @param users Collection of users to be added.
 	 */
 	public void addUsers(Collection<User> users) {
 		System.out.println("addUsers : " + users);
@@ -153,7 +148,11 @@ public class SearchGui extends JPanel implements ActionListener {
 		}
 		return ((UserTableModel) getTable().getModel()).getUser(row);
 	}
-
+	/**
+	 * Sets the name of the agent that found users.
+	 * Created only for informative purposes.
+	 * @param agentName
+	 */
 	public void setAgent(String agentName) {
 		System.out.println("ping");
 		System.out.println(agentName);
@@ -166,10 +165,11 @@ public class SearchGui extends JPanel implements ActionListener {
 	}
 
 	/**
+	 * Panel with textfields for user's credential and button to start search.
 	 * @author mak
 	 */
 	class SearchPanel extends JPanel implements ActionListener {
-	
+
 		SearchAgent agent;
 
 		private JPanel fieldPanel;

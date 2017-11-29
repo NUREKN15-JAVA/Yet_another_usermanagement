@@ -2,8 +2,6 @@ package ua.nure.baranov.agent;
 
 import java.util.Collection;
 
-import org.dbunit.util.search.SearchException;
-
 import jade.core.AID;
 import jade.core.Agent;
 import jade.core.behaviours.TickerBehaviour;
@@ -17,6 +15,12 @@ import ua.nure.baranov.db.DatabaseException;
 import ua.nure.baranov.gui.MainFrame;
 import ua.nure.baranov.gui.SearchGui;
 
+
+/**
+ * Agent for searching users (and connecting to another agents for search).
+ * @author Yevhenii Baranov
+ *
+ */
 @SuppressWarnings("serial")
 public class SearchAgent extends Agent {
 
@@ -79,7 +83,13 @@ public class SearchAgent extends Agent {
 		gui.dispose();
 		System.out.println("Agent " + getAID().getName() + "terminated");
 	}
-
+	
+	/**
+	 * Searches for users with specific {@code firstName} and {@code lastName}
+	 * @param firstName First name of the user
+	 * @param lastName Last name of the user
+	 * @throws SearchException
+	 */
 	public void search(String firstName, String lastName) throws SearchException {
 		try {
 			Collection<User> users = DAOFactory.getInstance().getUserDAO().find(firstName, lastName);
@@ -90,11 +100,15 @@ public class SearchAgent extends Agent {
 			}
 		} catch (DatabaseException e) {
 			e.printStackTrace();
-			throw new SearchException(e);
+			throw new SearchException();
 		}
 
 	}
-
+	/**
+	 * Shows search results in GUI
+	 * @param users List of users to be shown
+	 * @param string Name of agent who has found those users
+	 */
 	public void showUsers(Collection<User> users, String string) {
 		((SearchGui) gui.getSearchPanel()).setAgent(string);
 		((SearchGui) gui.getSearchPanel()).addUsers(users);

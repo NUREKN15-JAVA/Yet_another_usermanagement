@@ -4,6 +4,12 @@ import jade.core.AID;
 import jade.core.behaviours.Behaviour;
 import jade.lang.acl.ACLMessage;
 
+
+/**
+ * Behaviour of sending request to other agents to find user
+ * @author Yevhenii Baranov
+ *
+ */
 @SuppressWarnings("serial")
 public class SearchRequestBehaviour extends Behaviour {
 
@@ -20,7 +26,12 @@ public class SearchRequestBehaviour extends Behaviour {
 		}
 		myAgent.send(message);
 	}
-
+	/**
+	 * Creates behaviour that sends message to all agents in {@code aids} to find user with name {@code firstName} {@code lastName}.
+	 * @param aids List of receivers
+	 * @param firstName 
+	 * @param lastName
+	 */
 	public SearchRequestBehaviour(AID[] aids, String firstName, String lastName) {
 		this.aids = aids;
 		this.firstName = firstName;

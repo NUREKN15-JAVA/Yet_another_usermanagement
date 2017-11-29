@@ -11,6 +11,11 @@ import ua.nure.baranov.User;
 import ua.nure.baranov.db.DAOFactory;
 import ua.nure.baranov.db.DatabaseException;
 
+/**
+ * Behaviour that processes all incoming messages about searching for a user.
+ * @author Yevhenii Baranov
+ *
+ */
 @SuppressWarnings("serial")
 public class RequestServer extends CyclicBehaviour {
 
