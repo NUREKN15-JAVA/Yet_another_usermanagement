@@ -1,10 +1,13 @@
 package ua.nure.baranov.gui;
 
 import java.awt.BorderLayout;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
+import jade.wrapper.StaleProxyException;
 import ua.nure.baranov.User;
 import ua.nure.baranov.agent.SearchAgent;
 import ua.nure.baranov.db.DAOFactory;
@@ -38,6 +41,7 @@ public class MainFrame extends JFrame {
 		super();
 		this.agent = agent;
 		dao = DAOFactory.getInstance().getUserDAO();
+		addWindowListener(new MainFrameCloser(agent));
 		initialize();
 	}
 	
@@ -152,4 +156,21 @@ public class MainFrame extends JFrame {
 		return searchPanel;
 	}
 
+	private class MainFrameCloser extends WindowAdapter{
+		private SearchAgent agent;
+
+		public MainFrameCloser(SearchAgent agent) {
+			this.agent = agent;
+		}
+		
+		@Override
+		public void windowClosing(WindowEvent e) {
+			try {
+				agent.getContainerController().kill();
+			} catch (StaleProxyException e1) {
+				e1.printStackTrace();
+				System.exit(-1);
+			}
+		}
+	}
 }
